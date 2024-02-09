@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #db347c;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        #timer {
+            font-size: 36px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #2ecc71;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+    <title>Countdown Timer App</title>
+</head>
+
+<body>
+    <div id="timer">00:00</div>
+    <div id="buttons">
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+        var interval;
+        var timeInSeconds = 600;
+
+        function updateTimerDisplay() {
+            var minutes = Math.floor(timeInSeconds / 60);
+            var seconds = timeInSeconds % 60;
+            var formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            document.getElementById('timer').innerText = formattedTime;
+        }
+
+        function startTimer() {
+            interval = setInterval(function () {
+                if (timeInSeconds > 0) {
+                    timeInSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(interval);
+                    document.body.style.backgroundColor = '#e74c3c';
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(interval);
+        }
+
+        function resetTimer() {
+            clearInterval(interval);
+            timeInSeconds = 600;
+            document.body.style.backgroundColor = '#3498db';
+            updateTimerDisplay();
+        }
+    </script>
+</body>
+
+</html>
